@@ -12,7 +12,7 @@ impl<T: std::ops::AddAssign> LinkedList<T> {
     }
 }
 
-fn main() {
+fn helper() {
     let mut ll = LinkedList {
         data: 3,
         next: Some(Box::new(LinkedList {
@@ -37,32 +37,4 @@ fn main() {
     println!("v.len = {}, v.capacity = {}", v.len(), v.capacity());
 
     println!("Hello, {:?}", ll);
-
-    let mut s = "  hello   ".to_string();
-    let p = s.trim();
-    // let p = s.to_string();
-    println!("p == {}", p);
-
-    let fstr = "help me find home";
-    let ffstr = string_find_f(fstr);
-    println!("ffstr = {}", ffstr);
-    println!("chosen = {}", choose_str(1));
-}
-
-fn string_find_f<'a>(s: &'a str) -> &'a str {
-    let n = 0;
-    for (n, x) in s.char_indices() {
-        if x == 'f' {
-            return &s[n..];
-        }
-    }
-    s
-}
-
-fn choose_str(n: i32) -> &'static str {
-    match n {
-        0 => "hello",
-        1 => "goodbye",
-        _ => "other",
-    }
 }
