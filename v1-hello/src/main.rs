@@ -1,49 +1,30 @@
-#[derive(Debug, Clone)]
-pub struct Person {
-    name: String,
-    age: i32,
+#[derive(Debug)]
+pub struct LinkedList<T> {
+    data: T,
+    next: Option<Box<LinkedList<T>>>,
 }
 
-impl Person {
-    pub fn new(name: String, age: i32) -> Self {
-        Person { name, age }
+impl <T: std::ops::AddAssign> LinkedList<T> {
+    pub fn add_up(&mut self, n: T) {
+        self.data += n;
     }
-
-    pub fn greet(&self) -> String {
-        format!("Hi my name is {}", self.name)
-    }
-
-    pub fn age_up(&mut self, n: i32) {
-        self.age += n
-    }
-
-    pub fn dropme(self) {}
 }
 
 fn main() {
-    let mut p = Person::new("Mike".to_string(), 32);
-    p.age_up(3);
-    let s = p.greet();
-    println!("{:?}", s);
+    let mut ll = LinkedList {
+        data: 3,
+        next: Some(Box::new(LinkedList {
+            data: 2,
+            next: None,
+        })),
+    };
 
-    let a = get_age(&p);
+    if let Some(ref mut v) = ll.next {
+        v.add_up(10)
+    }
 
-    println!("person's age is {}", a);
-    p.age_up(2);
+    let v: Vec<String> = Vec::new();
+    v.push("hello".to_string());
 
-    let s2 = p.greet();
-    println!("really : {}", s2);
-
-    // p.name = "Tom".to_string();
-    // p.age_up(1);
-
-    // let s2 = p.greet();
-
-    // let a = get_age(&p);
-
-    // println!("Person's age is {}", a);
-}
-
-pub fn get_age(s: &Person) -> &i32 {
-    &s.age
+    println!("Hello, {:?}", ll);
 }
